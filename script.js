@@ -1,42 +1,27 @@
-window.addEventListener( "load", (event) => {
-    console.log("La page est chargée");
-    
 
-  
-  function getAPI (urlToFetch, fonctionAJouer) {
+fetch("myDataset.json")
+  .then(rep => {
+    return rep.json();
+  })
+  .then(data => {
+    addRecipe(data);
+  });
 
-    fetch(urlToFetch)
-    .then( response => response.json() )
-    .then( fonctionAJouer)
-    .catch( error => {
-      console.error(`We encountered an error: ${error}`);
-    });
+// Cette fonction prend les données JSON en entrée e
+function addRecipe(data) {
+  // Affiche les données dans la console du navigateur
+  console.log(data);
 
-  }
+  data.forEach(element => {
+    console.log(element.ingredients)
 
-function addProducts(donnees){
-    console.log(donnees)
- 
-    donnees.forEach(element => {
-        console.log(element.title)
+    let ingredients = element.ingredients
 
-        let productCard = `
-        <div class="productCard">
-        <h4>${element.title}<h4>
-        <img src="${element.image}">
-        </div>
-        `
-        document.querySelector("#productsContainer").innerHTML += productCard
-    });
-
-    
-  } 
-  
-  
-  getAPI("https://fakestoreapi.com/products/", addProducts)
-          
-        
-
-      });
+    ingredients.forEach(element => {
+      console.log(element.quantite + element.unite +element.aliment)
       
-      
+    });
+  });
+
+}
+
